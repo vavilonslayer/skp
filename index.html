@@ -3,67 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKP - Базовая раскладка</title>
+    <meta name="description" content="SKP — базовая адаптивная HTML‑раскладка с современной типографикой, тёмной темой и доступной навигацией.">
+    <meta property="og:title" content="SKP — Базовая раскладка">
+    <meta property="og:description" content="Современный шаблон с адаптивной сеткой, семантикой и улучшенной доступностью.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <title>SKP — Базовая раскладка</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⚡</text></svg>">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #f4f6f8;
+            --surface: #ffffff;
+            --text: #263238;
+            --muted: #607d8b;
+            --brand: #3498db;
+            --brand-600: #2980b9;
+            --accent: #27ae60;
+            --border: #e6eef2;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --container: 1200px;
         }
 
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f1419;
+                --surface: #151b22;
+                --text: #e6edf3;
+                --muted: #a0b3c5;
+                --brand: #3ea6ff;
+                --brand-600: #1b7fcc;
+                --accent: #2ecc71;
+                --border: #243242;
+                --shadow: 0 2px 10px rgba(0,0,0,0.4);
+            }
+        }
+
+        /* Reset */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
             line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
+            color: var(--text);
+            background-color: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: var(--container);
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        /* Удобство навигации */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+        }
+        .skip-link:focus {
+            left: 16px;
+            top: 16px;
+            background: var(--surface);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            outline: 2px solid var(--brand);
+        }
+
+        /* Шапка */
         header {
-            background-color: #2c3e50;
-            color: white;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: #fff;
             padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
-
-        header h1 {
+        header .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        header .brand h1 {
+            font-size: 2.25rem;
+            letter-spacing: 0.4px;
+            margin: 0;
+        }
+        header .subtitle {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            opacity: 0.9;
+            margin-top: 6px;
         }
 
+        /* Навигация */
         nav {
-            background-color: #34495e;
-            padding: 1rem 0;
+            background-color: #2a3a4a;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-
-        nav ul {
+        nav .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            gap: 1rem;
+        }
+        .menu {
             list-style: none;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.25rem 2rem;
+            margin: 0;
         }
-
-        nav a {
-            color: white;
+        .menu a {
+            color: #fff;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            letter-spacing: .2px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: color .2s ease, background-color .2s ease;
         }
+        .menu a:hover, .menu a:focus-visible { color: var(--brand); background: rgba(255,255,255,0.06); outline: none; }
+        .menu a[aria-current="page"] { background: rgba(255,255,255,0.12); }
 
-        nav a:hover {
-            color: #3498db;
-        }
-
-        main {
-            padding: 2rem 0;
-            min-height: 70vh;
-        }
+        /* Основной контент */
+        main { padding: 2rem 0; min-height: 70vh; }
 
         .content-grid {
             display: grid;
@@ -71,188 +142,196 @@
             gap: 2rem;
             margin-top: 2rem;
         }
+        @media (max-width: 1024px) { .content-grid { grid-template-columns: 1fr; } }
 
-        .sidebar {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        .surface { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .p-sm { padding: 1rem; }
+        .p-md { padding: 1.5rem; }
+        .p-lg { padding: 2rem; }
+        .mt-lg { margin-top: 2rem; }
+        .mb-sm { margin-bottom: .75rem; }
+        .mb-md { margin-bottom: 1rem; }
+        .muted { color: var(--muted); }
+        .list-unstyled { list-style: none; margin: 0; padding: 0; }
+        .divider { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1rem; }
 
-        .main-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        .main-content h2 { color: #2c3e50; margin-bottom: 1rem; border-bottom: 2px solid var(--brand); padding-bottom: 0.5rem; }
+        @media (prefers-color-scheme: dark) { .main-content h2 { color: #e6edf3; } }
+        .main-content p { margin-bottom: 1rem; text-align: justify; }
 
-        .main-content h2 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5rem;
-        }
+        .card h3 { color: #2c3e50; margin-bottom: 0.5rem; }
+        @media (prefers-color-scheme: dark) { .card h3 { color: #e6edf3; } }
 
-        .main-content p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        .card {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 1rem;
-        }
-
-        .card h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
+        /* Кнопки */
         .btn {
             display: inline-block;
-            background-color: #3498db;
+            background-color: var(--brand);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: transform .06s ease, background-color 0.2s ease;
+            will-change: transform;
         }
+        .btn:hover { background-color: var(--brand-600); transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn.secondary { background: var(--accent); border-color: transparent; }
 
-        .btn:hover {
-            background-color: #2980b9;
-        }
+        /* Футер */
+        footer { background-color: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem; }
+        footer .muted { opacity: .85; }
 
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            header h1 {
-                font-size: 2rem;
-            }
+        /* Переключатель темы (опционально) */
+        .theme-toggle {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.3);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <header>
+    <a href="#content" class="skip-link">Перейти к содержимому</a>
+
+    <header role="banner">
         <div class="container">
-            <h1>SKP</h1>
-            <p style="text-align: center; opacity: 0.9;">Базовая HTML раскладка</p>
+            <div class="brand">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M13 2l-1 7h6l-7 13 1-8H6l7-12z" fill="#ffd54f"/>
+                </svg>
+                <h1>SKP</h1>
+            </div>
+            <p class="subtitle">Базовая HTML раскладка</p>
         </div>
     </header>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#home">Главная</a></li>
+    <nav aria-label="Основная навигация">
+        <div class="container nav-inner">
+            <ul class="menu" role="list">
+                <li><a href="#home" aria-current="page">Главная</a></li>
                 <li><a href="#about">О нас</a></li>
                 <li><a href="#services">Услуги</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
+            <button class="theme-toggle" type="button" id="themeToggle" aria-label="Переключить тему">🌓</button>
         </div>
     </nav>
 
-    <main>
+    <main id="content" role="main">
         <div class="container">
-            <div class="content-grid">
+            <div class="content-grid" id="home">
                 <!-- Левая боковая панель -->
-                <aside class="sidebar">
+                <aside class="surface p-md sidebar" aria-label="Боковая панель слева">
                     <div class="card">
                         <h3>Быстрые ссылки</h3>
-                        <ul style="list-style: none; margin-top: 1rem;">
-                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3498db; text-decoration: none;">Ссылка 1</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3498db; text-decoration: none;">Ссылка 2</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #3498db; text-decoration: none;">Ссылка 3</a></li>
+                        <ul class="list-unstyled mt-lg" role="list">
+                            <li class="mb-sm"><a href="#about" class="btn" style="padding:.5rem .75rem">О нас</a></li>
+                            <li class="mb-sm"><a href="#services" class="btn" style="padding:.5rem .75rem">Услуги</a></li>
+                            <li><a href="#contact" class="btn" style="padding:.5rem .75rem">Контакты</a></li>
                         </ul>
                     </div>
-                    
-                    <div class="card">
+
+                    <div class="card mt-lg">
                         <h3>Информация</h3>
-                        <p style="font-size: 0.9rem; color: #666;">
-                            Это базовая HTML раскладка для проекта SKP. 
-                            Здесь можно разместить дополнительную информацию.
+                        <p class="muted" style="font-size: 0.95rem;">
+                            Это базовая HTML‑раскладка для проекта SKP. Здесь можно разместить дополнительную информацию.
                         </p>
                     </div>
                 </aside>
 
                 <!-- Основной контент -->
-                <section class="main-content">
-                    <h2>Добро пожаловать в SKP</h2>
+                <section class="surface p-lg main-content" aria-labelledby="welcome-title">
+                    <h2 id="welcome-title">Добро пожаловать в SKP</h2>
                     <p>
-                        Это базовая HTML раскладка, которая включает в себя современный дизайн 
-                        с адаптивной версткой. Страница содержит header с навигацией, 
-                        основную область контента с боковыми панелями и footer.
+                        Современная адаптивная раскладка с аккуратной типографикой, улучшенной доступностью и тёмной темой. Включает шапку с навигацией, гибкую сетку контента и лаконичный футер.
                     </p>
-                    
                     <p>
-                        Раскладка использует CSS Grid для создания гибкой структуры, 
-                        которая адаптируется под различные размеры экранов. 
-                        Все элементы стилизованы с использованием современных CSS-практик.
+                        Сетка построена на CSS Grid и плавно адаптируется под разные экраны. Используются CSS‑переменные, поддержка prefers‑color‑scheme и читабельные отступы.
                     </p>
 
-                    <div style="margin-top: 2rem;">
-                        <a href="#" class="btn">Подробнее</a>
-                        <a href="#" class="btn" style="margin-left: 1rem; background-color: #27ae60;">Связаться</a>
+                    <div class="mt-lg" aria-label="Действия">
+                        <a href="#about" class="btn">Подробнее</a>
+                        <a href="#contact" class="btn secondary" style="margin-left: 1rem;">Связаться</a>
                     </div>
                 </section>
 
                 <!-- Правая боковая панель -->
-                <aside class="sidebar">
+                <aside class="surface p-md sidebar" aria-label="Боковая панель справа">
                     <div class="card">
                         <h3>Новости</h3>
-                        <div style="margin-top: 1rem;">
-                            <div style="border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem;">
-                                <h4 style="color: #2c3e50; font-size: 1rem;">Новость 1</h4>
-                                <p style="font-size: 0.9rem; color: #666;">Краткое описание новости...</p>
+                        <div class="mt-lg">
+                            <div class="divider">
+                                <h4 style="margin:0 0 .25rem 0;">Новость 1</h4>
+                                <p class="muted" style="font-size: 0.95rem;">Краткое описание новости...</p>
                             </div>
-                            <div style="border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem;">
-                                <h4 style="color: #2c3e50; font-size: 1rem;">Новость 2</h4>
-                                <p style="font-size: 0.9rem; color: #666;">Краткое описание новости...</p>
+                            <div class="divider">
+                                <h4 style="margin:0 0 .25rem 0;">Новость 2</h4>
+                                <p class="muted" style="font-size: 0.95rem;">Краткое описание новости...</p>
                             </div>
                             <div>
-                                <h4 style="color: #2c3e50; font-size: 1rem;">Новость 3</h4>
-                                <p style="font-size: 0.9rem; color: #666;">Краткое описание новости...</p>
+                                <h4 style="margin:0 0 .25rem 0;">Новость 3</h4>
+                                <p class="muted" style="font-size: 0.95rem;">Краткое описание новости...</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="card">
+
+                    <div class="card mt-lg" id="contact">
                         <h3>Контакты</h3>
-                        <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
-                            Email: info@skp.com<br>
-                            Телефон: +7 (999) 123-45-67<br>
+                        <address class="muted" style="font-style: normal; margin-top: .75rem;">
+                            Email: <a href="mailto:info@skp.com">info@skp.com</a><br>
+                            Телефон: <a href="tel:+79991234567">+7 (999) 123‑45‑67</a><br>
                             Адрес: г. Москва, ул. Примерная, 1
-                        </p>
+                        </address>
                     </div>
                 </aside>
             </div>
+
+            <!-- Раздел О нас -->
+            <section id="about" class="mt-lg">
+                <div class="surface p-lg">
+                    <h2>О нас</h2>
+                    <p>Мы создаём чистые и быстрые интерфейсы на базе современной вёрстки.</p>
+                </div>
+            </section>
+
+            <!-- Раздел Услуги -->
+            <section id="services" class="mt-lg">
+                <div class="surface p-lg">
+                    <h2>Услуги</h2>
+                    <ul>
+                        <li>Адаптивная вёрстка и оптимизация скорости</li>
+                        <li>UI‑прототипы и дизайн‑системы</li>
+                        <li>Аудит доступности и UX‑улучшения</li>
+                    </ul>
+                </div>
+            </section>
         </div>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 SKP. Все права защищены.</p>
-            <p style="margin-top: 0.5rem; opacity: 0.8;">
-                Базовая HTML раскладка | Создано с ❤️
-            </p>
+            <p class="muted" style="margin-top: 0.5rem;">Базовая HTML раскладка | Создано с ❤️</p>
         </div>
     </footer>
+
+    <script>
+        // Переключатель темы: форсируем data-theme=light/dark поверх prefers-color-scheme
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            var saved = localStorage.getItem('theme');
+            if (saved === 'light') document.documentElement.style.colorScheme = 'light';
+            if (saved === 'dark') document.documentElement.style.colorScheme = 'dark';
+            btn && btn.addEventListener('click', function(){
+                var current = document.documentElement.style.colorScheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                var next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.style.colorScheme = next;
+                localStorage.setItem('theme', next);
+            });
+        })();
+    </script>
 </body>
 </html>
